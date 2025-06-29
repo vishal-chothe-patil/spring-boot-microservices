@@ -1,5 +1,6 @@
 package com.expertise.microservices.example.service.impl;
 
+import com.expertise.microservices.example.exception.UserNotFoundException;
 import com.expertise.microservices.example.model.User;
 import com.expertise.microservices.example.repository.UserRepository;
 import com.expertise.microservices.example.service.UserServiceI;
@@ -20,7 +21,7 @@ public class UserServiceImpl implements UserServiceI {
     @Override
     public User getUserByID(Long id) {
         return userRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("User not found with ID: " + id));
+                .orElseThrow(() -> new UserNotFoundException("User not found with ID: " + id));
     }
 
     @Override
