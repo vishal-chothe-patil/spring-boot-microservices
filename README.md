@@ -22,7 +22,7 @@ This Spring Boot microservices project demonstrates integration of a `validation
 
 ---
 
-## 🧱 Microservice Architecture Overview
+## Microservice Architecture Overview
 
 `Client → Validation Service → (calls REST) → Storage Service → MySQL`
 
@@ -35,7 +35,7 @@ Communication between services is done using `RestTemplate` over HTTP.
 
 ---
 
-## 🧾 Entity Fields & Validations (User)
+## Entity Fields & Validations (User) 
 
 | Field    | Type    | Validation                               |
 |----------|---------|-------------------------------------------|
@@ -78,5 +78,47 @@ Communication between services is done using `RestTemplate` over HTTP.
   -  DELETE /store/{id} → Delete user
   -  GET /store/{id} → Get user by ID
  
+---
 
+## Sample API Test (via Postman or curl) 🧪 
 
+### Valid Request to Validation Service:
+
+  ```http
+  POST http://localhost:8081/validate
+  ```
+
+Content-Type: application/json
+
+  ```json
+  {
+    "name": "Vishal",
+    "email": "vishal@example.com",
+    "age": 25,
+    "mobile": "9876543210",
+    "rollNo": "TWL2024",
+    "dept": "IT"
+  }
+  ```
+
+Invalid Request (Triggers Validation Error) ❌ 
+  ```json
+  {
+    "name": "Vishal123",
+    "email": "invalid-email",
+    "age": 25,
+    "mobile": "9876",
+    "dept": "Marketing"
+  }
+  ```
+
+Response: 🔁 
+
+  ```json
+  {
+    "name": "Name must contain only alphabets",
+    "email": "Invalid email format",
+    "mobile": "Mobile must be 10 digits",
+    "dept": "Invalid department"
+  }
+  ```
